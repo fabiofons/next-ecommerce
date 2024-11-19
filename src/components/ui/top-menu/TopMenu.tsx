@@ -20,8 +20,8 @@ export const TopMenu = () => {
       </div>
       <div className='hidden sm:block'>
         <Link className="m-2 p-2 transition-all hover:bg-gray-100" href="/categories/men">Men</Link>
-        <Link className="m-2 p-2 transition-all hover:bg-gray-100" href="/categories/women">Woman</Link>
-        <Link className="m-2 p-2 transition-all hover:bg-gray-100" href="/categories/kids">Kids</Link>
+        <Link className="m-2 p-2 transition-all hover:bg-gray-100" href="/categories/women">Women</Link>
+        <Link className="m-2 p-2 transition-all hover:bg-gray-100" href="/categories/kid">Kids</Link>
       </div>
       <div className='flex items-center gap-2'>
         <Link href='/search'>

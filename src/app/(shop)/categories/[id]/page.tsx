@@ -1,20 +1,40 @@
-import { notFound } from "next/navigation";
+import { GridProduct, Title } from "@/components";
+import { Category } from "@/interfaces";
+import { initialData } from "@/seed/seed";
+// import { notFound } from "next/navigation";
+
 
 interface Props {
   params: {
-    id: string
+    id: Category
   }
 }
 
-export default function CategoryPage({ params }: Props) {
+export default async function CategoryPage({ params }: Props) {
 
-  if (params.id === 'kids') {
-    notFound();
+  const { id } = await params
+  const seedProducts = initialData.products;
+
+  // if (id !== ValidCategories.men && id !== ValidCategories.women && id !== ValidCategories.kid) {
+  //   notFound()
+  // }
+
+  const labels: Record<Category, string> = {
+    'men': 'for Men',
+    'women': 'for Women',
+    'kid': 'for Kids',
+    'unisex': 'for All'
   }
 
+  const products = seedProducts.filter(product => product.gender === id);
   return (
-    <div>
-      <h1>id Page {params.id}</h1>
-    </div>
+    <>
+      <Title
+        title={id}
+        subtitle={`Our products ${labels[id]}`}
+        className="mb-2"
+      />
+      <GridProduct products={products} />
+    </>
   );
 }

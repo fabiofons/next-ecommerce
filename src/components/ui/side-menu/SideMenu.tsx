@@ -17,7 +17,10 @@ export const SideMenu = () => {
       {/* Background site */}
       {isSideMenuOpen && <div className='fixed top-0 left-0 h-full w-full bg-black bg-opacity-30 z-10' />}
       {/* blur */}
-      {isSideMenuOpen && <div className='fade-in fixed top-0 left-0 h-full w-full backdrop-filter backdrop-blur-sm' />}
+      {isSideMenuOpen
+        && <div
+          onClick={closeMenu}
+          className='fade-in fixed top-0 left-0 h-full w-full backdrop-filter backdrop-blur-sm' />}
       {/* Navigation */}
       <nav className={clsx(
         'fixed p-5 right-0 top-0 h-full w-[400px] bg-white z-20 shadow-2xl transform transition-all duration-300',
