@@ -2,11 +2,16 @@ import { QuantitySelector, Title } from '@/components';
 import { initialData } from '@/seed/seed';
 import Image from 'next/image';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 import { IoInformationCircleOutline } from 'react-icons/io5';
 
 const cartProducts = [initialData.products[3], initialData.products[2], initialData.products[5]];
 
 export default function CartPage() {
+  if (cartProducts.length === 0) {
+    redirect('/empty');
+  }
+
   return (
     <div className="max-w-[1200px] mx-auto mb-32">
       <div className="flex flex-col px-5">

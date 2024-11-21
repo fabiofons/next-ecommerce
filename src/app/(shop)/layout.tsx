@@ -1,15 +1,12 @@
-import { SideMenu, TopMenu } from "@/components"
+import { Footer, SideMenu, TopMenu } from '@/components';
 
-export default function Layout({ children }: {
-    children: React.ReactNode
-}) {
-    return (
-        <main className="min-h-screen">
-            <TopMenu />
-            <SideMenu />
-            <div className='px-0 sm:px-5'>
-                {children}
-            </div>
-        </main>
-    )
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return (
+    <main className="min-h-screen">
+      <TopMenu />
+      <SideMenu />
+      <div className="px-0 sm:px-5">{children}</div>
+      <Footer />
+    </main>
+  );
 }
