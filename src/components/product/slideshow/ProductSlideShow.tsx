@@ -25,10 +25,12 @@ export const ProductSlideShow = ({ title, images, className }: Props) => {
   return (
     <div className={className}>
       <Swiper
-        style={{
-          '--swiper-navigation-color': '#fff',
-          '--swiper-pagination-color': '#fff',
-        } as React.CSSProperties}
+        style={
+          {
+            '--swiper-navigation-color': '#fff',
+            '--swiper-pagination-color': '#fff',
+          } as React.CSSProperties
+        }
         spaceBetween={10}
         autoplay={{
           delay: 3000,
@@ -39,21 +41,19 @@ export const ProductSlideShow = ({ title, images, className }: Props) => {
         modules={[FreeMode, Navigation, Thumbs, Autoplay]}
         className="mySwiper2"
       >
-        {
-          images.map((image) => {
-            return (
-              <SwiperSlide key={image}>
-                <Image
-                  src={`/products/${image}`}
-                  width={1024}
-                  height={800}
-                  alt={title}
-                  className='rounded-xl object-fill'
-                />
-              </SwiperSlide>
-            )
-          })
-        }
+        {images.map((image) => {
+          return (
+            <SwiperSlide key={image}>
+              <Image
+                src={`/products/${image}`}
+                width={1024}
+                height={800}
+                alt={title}
+                className="rounded-xl object-fill"
+              />
+            </SwiperSlide>
+          );
+        })}
       </Swiper>
       <Swiper
         onSwiper={setThumbsSwiper}
@@ -64,22 +64,20 @@ export const ProductSlideShow = ({ title, images, className }: Props) => {
         modules={[FreeMode, Navigation, Thumbs]}
         className="mySwiper"
       >
-        {
-          images.map((image) => {
-            return (
-              <SwiperSlide key={image}>
-                <Image
-                  src={`/products/${image}`}
-                  width={1024}
-                  height={800}
-                  alt={title}
-                  className='rounded-xl object-fill'
-                />
-              </SwiperSlide>
-            )
-          })
-        }
+        {images.map((image) => {
+          return (
+            <SwiperSlide key={image}>
+              <Image
+                src={`/products/${image}`}
+                width={1024}
+                height={800}
+                alt={title}
+                className="rounded-xl object-fill"
+              />
+            </SwiperSlide>
+          );
+        })}
       </Swiper>
     </div>
   );
-}
+};

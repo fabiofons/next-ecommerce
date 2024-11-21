@@ -22,11 +22,13 @@ export const ProductMobileSlideShow = ({ title, images, className }: Props) => {
   return (
     <div className={className}>
       <Swiper
-        style={{
-          // '--swiper-pagination-color': '#fff',
-          'width': '100vw',
-          'height': '500px',
-        } as React.CSSProperties}
+        style={
+          {
+            // '--swiper-pagination-color': '#fff',
+            width: '100vw',
+            height: '500px',
+          } as React.CSSProperties
+        }
         autoplay={{
           delay: 3000,
           disableOnInteraction: false,
@@ -37,22 +39,20 @@ export const ProductMobileSlideShow = ({ title, images, className }: Props) => {
         modules={[Pagination]}
         className="mySwiper2"
       >
-        {
-          images.map((image) => {
-            return (
-              <SwiperSlide key={image}>
-                <Image
-                  src={`/products/${image}`}
-                  width={600}
-                  height={300}
-                  alt={title}
-                  className='object-fill'
-                />
-              </SwiperSlide>
-            )
-          })
-        }
+        {images.map((image) => {
+          return (
+            <SwiperSlide key={image}>
+              <Image
+                src={`/products/${image}`}
+                width={600}
+                height={300}
+                alt={title}
+                className="object-fill"
+              />
+            </SwiperSlide>
+          );
+        })}
       </Swiper>
     </div>
   );
-}
+};
