@@ -1,4 +1,4 @@
-import { QuantitySelector, SizeSelector } from "@/components";
+import { ProductMobileSlideShow, ProductSlideShow, QuantitySelector, SizeSelector } from "@/components";
 import { titleFonts } from "@/config/fonts";
 import { initialData } from "@/seed/seed";
 import { notFound } from "next/navigation";
@@ -9,8 +9,8 @@ interface Props {
   }
 }
 
-export default function ProductPage({ params }: Props) {
-  const { slug } = params;
+export default async function ProductPage({ params }: Props) {
+  const { slug } = await params;
   const product = initialData.products.find((product => product.slug === slug));
 
   if (!product) {
@@ -18,10 +18,22 @@ export default function ProductPage({ params }: Props) {
   }
 
   return (
-    <div className="mt-5 mb-20 grid grid-col-1 md:grid-cols-3 gap-3">
+    <div className="mt-5 mb-20 grid grid-cols-1 md:grid-cols-3 gap-3">
 
-      <div className="col-span-1 md:col-span-2 bg-red-300">
-        slideshow
+      <div className="col-span-1 md:col-span-2">
+        {/* Mobile */}
+        <ProductMobileSlideShow
+          title={product.title}
+          images={product.images}
+          className="block md:hidden"
+        />
+
+        {/* Desktop */}
+        <ProductSlideShow
+          title={product.title}
+          images={product.images}
+          className="hidden md:block"
+        />
       </div>
       <div className="col-span-1 px-5">
         <h1 className={`${titleFonts.className} antialiased font-bold text-xl`}>
