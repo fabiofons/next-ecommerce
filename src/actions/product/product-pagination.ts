@@ -7,10 +7,7 @@ interface PaginationOptions {
   take?: number;
 }
 
-export const getPaginatedProductsWithImages = async ({
-  take = 12,
-  page = 1,
-}: PaginationOptions) => {
+export const getPaginatedProductsWithImages = async ({ take = 3, page = 1 }: PaginationOptions) => {
   if (isNaN(Number(page))) page = 1;
   if (page < 1) page = 1;
 
@@ -28,7 +25,12 @@ export const getPaginatedProductsWithImages = async ({
       },
     });
 
+    const totalCount = await prisma.product.count();
+    const totalPages = Math.ceil(totalCount / take);
+
     return {
+      currentPage: page,
+      totalPages,
       products: products.map((product) => ({
         ...product,
         images: product.ProductImage.map((image) => image.url),
