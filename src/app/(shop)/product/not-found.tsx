@@ -1,8 +1,5 @@
-import NotFound from "../categories/not-found";
-
+import NotFound from '../gender/not-found';
 
 export default function ProductNotFound() {
-  return (
-    <NotFound />
-  );
+  return <NotFound />;
 }

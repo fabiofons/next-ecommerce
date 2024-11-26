@@ -8,9 +8,9 @@ import { IoCartOutline, IoInformationCircleOutline } from 'react-icons/io5';
 const cartProducts = [initialData.products[3], initialData.products[2], initialData.products[5]];
 
 interface Props {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export default async function OrderPage({ params }: Props) {

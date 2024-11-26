@@ -4,7 +4,7 @@ export const generatePaginationNumbers = (currentPage: number, totalPages: numbe
     return Array.from({ length: totalPages }, (_, i) => i + 1);
   }
 
-  if (currentPage <= 3) {
+  if (currentPage <= 2) {
     return [1, 2, 3, '...', totalPages - 1, totalPages];
   }
 

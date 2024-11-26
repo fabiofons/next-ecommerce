@@ -1,30 +1,35 @@
 export const revalidate = 60;
 import { getPaginatedProductsWithImages } from '@/actions';
-import { Pagination, Title } from '@/components';
-import { GridProduct } from '@/components';
+import { GridProduct, Pagination, Title } from '@/components';
+import { Gender } from '@prisma/client';
 import { redirect } from 'next/navigation';
 
 interface Props {
+  params: Promise<{
+    gender: string;
+  }>;
   searchParams: Promise<{
     page?: string;
   }>;
 }
-
-export default async function Home({ searchParams }: Props) {
+export default async function Category({ params, searchParams }: Props) {
+  const { gender } = await params;
   const { page } = await searchParams;
 
   const pageNumber = isNaN(Number(page)) ? 1 : Number(page);
 
   const { totalPages, products } = await getPaginatedProductsWithImages({
     page: pageNumber,
+    gender: gender as Gender,
   });
 
   if (products.length === 0) {
-    redirect('/');
+    redirect(`/gender/${gender}`);
   }
+
   return (
-    <div className="px-4">
-      <Title title="Store" subtitle="Our products" className="mb-2" />
+    <div>
+      <Title title={gender as string} subtitle={`Our products for ${gender}`} className="mb-2" />
       <GridProduct products={products} />
       <Pagination totalPages={totalPages} />
     </div>
