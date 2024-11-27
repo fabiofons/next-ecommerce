@@ -17,6 +17,7 @@ export const StockLabel = ({ slug }: { slug: string }) => {
     setStock(currentStock);
     setIsLoading(false);
   };
+
   return isLoading ? (
     <h1
       className={`${titleFonts.className} antialiased font-bold text-lg bg-gray-100 animate-pulse w-40`}

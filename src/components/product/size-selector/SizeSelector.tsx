@@ -1,33 +1,38 @@
 'use client';
-import type { Size } from "@/interfaces";
-import clsx from "clsx";
-import { useState } from "react";
+import type { Size } from '@/interfaces';
+import clsx from 'clsx';
+import { useState } from 'react';
 
 interface Props {
-  selectedSize: Size;
+  selectedSize?: Size;
   sizes: Size[];
+
+  onSizeSelected: (size: Size) => void;
 }
 
-export const SizeSelector = ({ selectedSize, sizes }: Props) => {
-  const [initialSize, setInitialSize] = useState(selectedSize)
+export const SizeSelector = ({ selectedSize, sizes, onSizeSelected }: Props) => {
   return (
     <>
-      <h4 className='font-medium text-sm mb-1'>Size</h4>
+      <h4 className="font-medium text-sm mb-1">Size</h4>
       <div className="mb-5 flex">
         {sizes.map((size) => {
           return (
             <button
               key={size}
               className="mx-3 text-md font-semibold pb-2"
-              onClick={() => setInitialSize(size)}
+              onClick={() => onSizeSelected(size)}
             >
-              <span className={clsx("border-solid border-black hover:border-b-2", {
-                'border-b-2': size === initialSize
-              })}>{size}</span>
+              <span
+                className={clsx('border-solid border-black hover:border-b-2', {
+                  'border-b-2': size === selectedSize,
+                })}
+              >
+                {size}
+              </span>
             </button>
           );
         })}
       </div>
     </>
-  )
-}
+  );
+};

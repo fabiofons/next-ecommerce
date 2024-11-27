@@ -10,6 +10,29 @@ import {
 } from '@/components';
 import { titleFonts } from '@/config/fonts';
 import { notFound } from 'next/navigation';
+import { Metadata, ResolvingMetadata } from 'next/types';
+import { AddToCart } from './ui/AddToCart';
+
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
+  // read route params
+  const slug = (await params).slug;
+
+  // fetch data
+  const product = await getProductBySlug(slug);
+
+  return {
+    title: product?.title ?? 'product not found ',
+    description: product?.description ?? 'product not found',
+    openGraph: {
+      title: product?.title ?? 'product not found ',
+      description: product?.description ?? 'product not found',
+      images: [`/products/${product?.images[1]}`],
+    },
+  };
+}
 
 interface Props {
   params: Promise<{
@@ -48,13 +71,9 @@ export default async function ProductPage({ params }: Props) {
         <p className={`${titleFonts.className} antialiased text-lg mb-5 font-semibold`}>
           ${product.price}
         </p>
-        {/* selector de tallas */}
-        <SizeSelector selectedSize={product.sizes[1]} sizes={product.sizes} />
 
-        {/* selector de cantidades */}
-        <QuantitySelector quantity={product.inStock} />
+        <AddToCart product={product} />
 
-        <button className="btn-primary mb-7 mt-2">Add to Cart</button>
         <div>
           <h3 className="font-semibold text-sm mb-1">Description</h3>
           <p className="font-light">{product.description}</p>
