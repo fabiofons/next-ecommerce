@@ -19,7 +19,7 @@ export const QuantitySelector = ({ quantity, inStock, onQuantityChanged }: Props
             onQuantityChanged(quantity - 1);
           }}
         >
-          <IoRemoveCircleOutline size={30} />
+          <IoRemoveCircleOutline size={20} />
         </button>
         <span className="px-6 py-1 bg-gray-100 rounded-md mx-2">{quantity}</span>
         <button
@@ -28,7 +28,7 @@ export const QuantitySelector = ({ quantity, inStock, onQuantityChanged }: Props
             onQuantityChanged(quantity + 1);
           }}
         >
-          <IoAddCircleOutline size={30} />
+          <IoAddCircleOutline size={20} />
         </button>
       </div>
     </div>

@@ -1,17 +1,16 @@
-'use client';
-import { QuantitySelector, Title } from '@/components';
-import { useCartState } from '@/store';
-import Image from 'next/image';
+import { Title } from '@/components';
+
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
 import { IoInformationCircleOutline } from 'react-icons/io5';
+import { ProductsInCart } from './ui/ProductsInCart';
+import { useCartState } from '@/store';
+import { useEffect, useState } from 'react';
+import { OrderSummary } from './ui/OrderSummary';
 
 export default function CartPage() {
-  const cartProducts = useCartState((state) => state.cart);
-
-  if (cartProducts.length === 0) {
-    redirect('/empty');
-  }
+  // if (cartProducts.length === 0) {
+  //   redirect('/empty');
+  // }
 
   return (
     <div className="max-w-[1200px] mx-auto mb-32">
@@ -32,59 +31,17 @@ export default function CartPage() {
               </div>
             </div>
             {/* Items */}
-            {cartProducts.map((product) => {
-              return (
-                <div key={product.slug + product.size} className="flex mb-5 justify-between">
-                  <div className="flex gap-3">
-                    <div className="w-24 h-24">
-                      <Image
-                        src={`/products/${product.image}`}
-                        alt={product.title}
-                        width={100}
-                        height={100}
-                        className="rounded w-24"
-                      />
-                    </div>
-                    <div>
-                      <p className="text-base font-semibold">{product.title}</p>
-                      <p className="text-sm font-medium">
-                        Size: <span className="font-semibold">{product.size}</span>
-                      </p>
-                      <div className="flex gap-3 items-center">
-                        {/* <QuantitySelector quantity={product.quantity} /> */}
-                        <button className="underline text-xs">Remove</button>
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <p className="font-semibold">${product.price}</p>
-                  </div>
-                </div>
-              );
-            })}
+            <ProductsInCart />
           </div>
 
           {/* Summary */}
+
           <div>
             <div className="bg-white rounded-xl shahow p-7 md:ml-32 h-auto gap-4 flex flex-col">
               <h4 className="text-xl mb-2 font-bold">Orden Summary</h4>
-              <div className="flex justify-between">
-                <span>Shipping</span>
-                <span>Free</span>
-              </div>
-              <div className="grid grid-cols-2">
-                <p className="flex gap-2 items-center">
-                  <span>Sales Tax</span>
-                  <IoInformationCircleOutline size={20} />
-                </p>
-                <span className="text-right">Calculated at checkout</span>
-              </div>
-              <div className="flex justify-between mb-2">
-                <span className="text-xl font-semibold">Subtotal</span>
-                <span className="text-xl font-semibold">
-                  ${cartProducts.reduce((acc, product) => acc + product.price, 0)}
-                </span>
-              </div>
+
+              <OrderSummary />
+
               <Link href="/checkout/address" className="text-center btn-primary mb-3">
                 Checkout
               </Link>
