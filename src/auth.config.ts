@@ -6,10 +6,37 @@ import { z } from 'zod';
 
 import prisma from '@/lib/prisma';
 
+const protectedRoutes = ['/checkout', '/checkout/address'];
+
 export const authConfig: NextAuthConfig = {
   pages: {
     signIn: '/auth/login',
     newUser: '/auth/new-account',
+  },
+  callbacks: {
+    authorized({ auth, request: { nextUrl } }) {
+      const isLoggedIn = !!auth?.user;
+      const isOnProtectedRoute = protectedRoutes.includes(nextUrl.pathname);
+      console.log({ auth, nextUrl: nextUrl.pathname, isLoggedIn, isOnProtectedRoute });
+      if (isOnProtectedRoute) {
+        if (isLoggedIn) return true;
+        return false;
+      }
+      return true;
+    },
+
+    jwt({ token, user }) {
+      if (user) {
+        token.data = user;
+      }
+
+      return token;
+    },
+
+    session({ session, token, user }) {
+      session.user = token.data as any;
+      return session;
+    },
   },
   providers: [
     Credentials({
@@ -34,12 +61,10 @@ export const authConfig: NextAuthConfig = {
 
         const { password: _, ...userWithoutPassword } = user;
 
-        console.log({ userWithoutPassword });
-
         return userWithoutPassword;
       },
     }),
   ],
 };
 
-export const { signIn, signOut, auth } = NextAuth(authConfig);
+export const { signIn, signOut, auth, handlers } = NextAuth(authConfig);
